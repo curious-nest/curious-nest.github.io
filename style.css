@@ -168,3 +168,7 @@ footer .wrap {
 }
 footer a { color: #fff; }
 footer nav { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* Video lists (filled by tools/update_videos.py) */
+#videos h2 + .videos { margin-bottom: 8px; }
+.more { text-align: center; margin: 8px 0 0; }

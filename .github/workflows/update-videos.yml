@@ -1,0 +1,25 @@
+name: Update video lists
+
+on:
+  schedule:
+    - cron: "45 14 * * *"   # 20:15 India time, just after the 8 PM releases
+    - cron: "30 2 * * *"    # 08:00 India time
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/update_videos.py
+      - name: Commit if anything changed
+        run: |
+          git add -A index.html img/videos
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git config user.name "Curious Nest bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update video lists"
+          git push
